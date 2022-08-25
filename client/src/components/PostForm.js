@@ -11,7 +11,6 @@ const PostForm=()=>{
 
 
   const handleSubmit=async()=>{
-    setPostData({...postData,creator:user});
 
     if(postData.title && postData.message && postData.tags && postData.selectedFile && postData.creator)
     {
@@ -25,7 +24,8 @@ const PostForm=()=>{
                   const {data}=await axios.post("http://127.0.0.1:5000/posts/create",postData,config);
                       if(data){
                         setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' });
-                        alert("Memory added successful!")
+                        alert("Memory added successful!");
+                        window.location.reload();
                       }
               }catch(err){
                 alert(err.response['data']);
@@ -40,6 +40,8 @@ const PostForm=()=>{
     const token=localStorage.getItem("Token");
     setUser(user);
     setToken(token);
+    setPostData({...postData,creator:user});
+
   },[]);
   
  
